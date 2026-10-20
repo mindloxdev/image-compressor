@@ -1,0 +1,452 @@
+@import 'tailwindcss';
+
+/*
+  Pixelpress design tokens.
+
+  Colours are defined once as semantic roles and re-pointed for dark mode, so
+  components never name a shade. Three states are covered: an explicit light
+  choice, an explicit dark choice, and the system default.
+*/
+
+@theme {
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --color-canvas: var(--c-canvas);
+  --color-surface: var(--c-surface);
+  --color-sunken: var(--c-sunken);
+  --color-raised: var(--c-raised);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-faint: var(--c-faint);
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-brand: var(--c-brand);
+  --color-brand-strong: var(--c-brand-strong);
+  --color-brand-vivid: var(--c-brand-vivid);
+  --color-accent-2: var(--c-accent-2);
+  --color-accent-3: var(--c-accent-3);
+  --color-brand-soft: var(--c-brand-soft);
+  --color-on-brand: var(--c-on-brand);
+  --color-save: var(--c-save);
+  --color-save-soft: var(--c-save-soft);
+  --color-good: var(--c-good);
+  --color-warn: var(--c-warn);
+  --color-warn-soft: var(--c-warn-soft);
+  --color-bad: var(--c-bad);
+  --color-bad-soft: var(--c-bad-soft);
+
+  --radius-card: 16px;
+  --radius-control: 12px;
+
+  /* Elevation tinted with the MindLox ink, as on mindlox.ai. */
+  --shadow-card: 0 1px 2px rgb(6 9 26 / 0.06), 0 10px 30px -18px rgb(6 9 26 / 0.18);
+  --shadow-float: 0 4px 12px -2px rgb(6 9 26 / 0.08), 0 32px 80px -20px rgb(6 9 26 / 0.3);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/*
+  Colours are the mindlox.ai palette.
+
+  Backgrounds, foregrounds, accents and status colours are lifted from the
+  MindLox AI design tokens. Three roles are stepped one or two stops darker
+  than the site uses them, because MindLox applies those colours to large
+  display type and fills, while this product puts them on 12-13px UI text that
+  has to clear 4.5:1. In every case the replacement is a darker shade of the
+  same MindLox hue -- the accent steps to electric-600/700, which are already
+  in their palette.
+
+  MindLox AI ships no dark scheme, so the dark values here are built from the
+  navy and ink ramps in the same token file rather than invented.
+*/
+
+:root {
+  color-scheme: light;
+
+  /* bg-2 / bg / bg-3 */
+  --c-canvas: #f6f8fc;
+  --c-surface: #ffffff;
+  --c-sunken: #eef1f8;
+  --c-raised: #ffffff;
+
+  --c-ink: #06091a;        /* fg */
+  --c-muted: #4a5470;      /* fg-2 */
+  --c-faint: #5a6480;      /* fg-3 darkened from #8a93ab for 4.5:1 */
+
+  --c-line: rgb(6 9 26 / 0.09);
+  --c-line-strong: rgb(6 9 26 / 0.16);
+
+  --c-brand: #1f55e0;         /* electric-600 -- readable as text and as a fill */
+  --c-brand-strong: #1a44b3;  /* electric-700 */
+  --c-brand-vivid: #2b6bff;   /* accent -- fills, focus ring, illustration */
+  --c-brand-soft: #eaf0ff;    /* accent-soft, flattened to an opaque tint */
+  --c-on-brand: #ffffff;
+
+  /* The other two stops of the MindLox gradient. Decorative only. */
+  --c-accent-2: #14b8dc;   /* cyan-500 */
+  --c-accent-3: #7c5cff;   /* violet-500 */
+
+  /* Savings are a positive outcome, so they take the MindLox positive hue. */
+  --c-save: #0a7352;       /* mint, darkened from #10b981 */
+  --c-save-soft: #e6f6ef;
+
+  --c-good: #0a7352;
+  --c-warn: #8a5800;       /* warning, darkened from #f59e0b */
+  --c-warn-soft: #fdf3e0;
+  --c-bad: #c01a3e;        /* negative, darkened from #f0466a */
+  --c-bad-soft: #fdecef;
+}
+
+/* Dark scheme, built from the MindLox navy and ink ramps. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --c-canvas: #060b1a;   /* midnight */
+    --c-surface: #0b1230;  /* navy-900 */
+    --c-sunken: #070d21;   /* navy-950 */
+    --c-raised: #111a3f;   /* navy-800 */
+
+    --c-ink: #e6e9f2;      /* ink-100 */
+    --c-muted: #a7afc4;    /* ink-300 */
+    --c-faint: #8a93ab;
+
+    --c-line: rgb(230 233 242 / 0.12);
+    --c-line-strong: rgb(230 233 242 / 0.24);
+
+    --c-brand: #4d85ff;         /* electric-400 */
+    --c-brand-strong: #8fb3ff;  /* electric-300 -- lighter reads as stronger here */
+    --c-brand-vivid: #2b6bff;
+    --c-brand-soft: #16204a;
+    --c-on-brand: #060b1a;
+
+    --c-accent-2: #38d6f5;  /* cyan-400 */
+    --c-accent-3: #9b85ff;  /* violet-400 */
+
+    --c-save: #34d399;     /* mint-400 */
+    --c-save-soft: #07271d;
+
+    --c-good: #34d399;
+    --c-warn: #fbbf24;     /* amber-400 */
+    --c-warn-soft: #2a2008;
+    --c-bad: #fda4af;
+    --c-bad-soft: #2d0f17;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --c-canvas: #060b1a;
+  --c-surface: #0b1230;
+  --c-sunken: #070d21;
+  --c-raised: #111a3f;
+
+  --c-ink: #e6e9f2;
+  --c-muted: #a7afc4;
+  --c-faint: #8a93ab;
+
+  --c-line: rgb(230 233 242 / 0.12);
+  --c-line-strong: rgb(230 233 242 / 0.24);
+
+  --c-brand: #4d85ff;
+  --c-brand-strong: #8fb3ff;
+  --c-brand-vivid: #2b6bff;
+  --c-brand-soft: #16204a;
+  --c-on-brand: #060b1a;
+
+  --c-accent-2: #38d6f5;
+  --c-accent-3: #9b85ff;
+
+  --c-save: #34d399;
+  --c-save-soft: #07271d;
+
+  --c-good: #34d399;
+  --c-warn: #fbbf24;
+  --c-warn-soft: #2a2008;
+  --c-bad: #fda4af;
+  --c-bad-soft: #2d0f17;
+}
+
+@layer base {
+  * {
+    border-color: var(--c-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--c-canvas);
+    color: var(--c-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.021em;
+    line-height: 1.15;
+    font-weight: 600;
+  }
+
+  /* Numbers line up in columns and never shift width as they count up. */
+  .tabular {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--c-brand-vivid);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Only the keyboard gets a ring; a mouse click should not leave one behind. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--c-brand-vivid);
+    color: #ffffff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .card {
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-control);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    /* 44px minimum touch target. */
+    min-height: 2.75rem;
+    padding: 0 1.125rem;
+    cursor: pointer;
+    transition: background-color 160ms var(--ease-out-quint),
+      border-color 160ms var(--ease-out-quint), color 160ms var(--ease-out-quint),
+      transform 160ms var(--ease-out-quint);
+    white-space: nowrap;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background-color: var(--c-brand);
+    color: var(--c-on-brand);
+    border: 1px solid transparent;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--c-brand-strong);
+  }
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--c-ink);
+    border: 1px solid var(--c-line);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background-color: var(--c-sunken);
+    border-color: var(--c-line-strong);
+  }
+
+  .btn-quiet {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--c-muted);
+    min-height: 2.25rem;
+    padding: 0 0.625rem;
+  }
+  .btn-quiet:hover:not(:disabled) {
+    color: var(--c-ink);
+    background-color: var(--c-sunken);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 999px;
+    border: 1px solid var(--c-line);
+    background-color: var(--c-surface);
+    padding: 0.1875rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--c-muted);
+    white-space: nowrap;
+  }
+
+  .field {
+    width: 100%;
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-control);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--c-ink);
+    min-height: 2.5rem;
+  }
+  .field:hover {
+    border-color: var(--c-line-strong);
+  }
+
+  .label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--c-muted);
+    margin-bottom: 0.375rem;
+  }
+
+  .hint {
+    font-size: 0.8125rem;
+    color: var(--c-faint);
+    line-height: 1.5;
+  }
+
+  /* Range inputs are styled by hand because the native track ignores
+     border-radius and the thumb needs a real 44px grab area on touch. */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 1.5rem;
+    background: transparent;
+    cursor: pointer;
+  }
+  .slider::-webkit-slider-runnable-track {
+    height: 0.375rem;
+    border-radius: 999px;
+    background: var(--c-sunken);
+    border: 1px solid var(--c-line);
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: -0.4375rem;
+    border-radius: 999px;
+    background: var(--c-brand);
+    border: 2px solid var(--c-surface);
+    box-shadow: 0 1px 4px rgb(10 30 28 / 0.3);
+  }
+  .slider::-moz-range-track {
+    height: 0.375rem;
+    border-radius: 999px;
+    background: var(--c-sunken);
+    border: 1px solid var(--c-line);
+  }
+  .slider::-moz-range-thumb {
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 999px;
+    background: var(--c-brand);
+    border: 2px solid var(--c-surface);
+  }
+
+  .prose-body {
+    color: var(--c-muted);
+    line-height: 1.7;
+  }
+  .prose-body h2 {
+    color: var(--c-ink);
+    font-size: 1.375rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-body h3 {
+    color: var(--c-ink);
+    font-size: 1.0625rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-body p {
+    margin-bottom: 1rem;
+  }
+  .prose-body ul {
+    margin: 0 0 1rem 1.125rem;
+    list-style: disc;
+  }
+  .prose-body li {
+    margin-bottom: 0.375rem;
+  }
+  .prose-body a {
+    color: var(--c-brand);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-body strong {
+    color: var(--c-ink);
+    font-weight: 600;
+  }
+
+  /* The checkerboard behind transparent previews. */
+  .alpha-grid {
+    background-image:
+      linear-gradient(45deg, var(--c-sunken) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--c-sunken) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--c-sunken) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--c-sunken) 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    background-color: var(--c-surface);
+  }
+}
+
+@keyframes pp-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-in {
+  animation: pp-fade-up 320ms var(--ease-out-quint) both;
+}
+
+@keyframes pp-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(300%); }
+}
+
+.progress-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 33%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.35), transparent);
+  animation: pp-sweep 1.4s linear infinite;
+}

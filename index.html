@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pixelpress — Compress Images Without Losing Quality</title>
+    <meta
+      name="description"
+      content="Free online image compressor that runs in your browser. Batch compress JPG, PNG, WebP and AVIF, resize, target a file size, and compare before and after. No uploads, no account."
+    />
+    <meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#060b1a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=JetBrains+Mono:wght@400..600&display=swap"
+    />
+
+    <script>
+      // Apply the saved theme before first paint so the page never flashes the
+      // wrong colours. Mirrors the logic in hooks/useTheme.ts.
+      try {
+        var saved = window.localStorage.getItem('pixelpress-theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (error) {
+        /* Blocked site data: fall through to the system preference. */
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

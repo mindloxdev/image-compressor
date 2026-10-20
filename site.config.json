@@ -1,0 +1,4 @@
+{
+  "origin": "",
+  "_origin_help": "Absolute site origin with no trailing slash, e.g. https://pixelpress.example. Required for canonical URLs, Open Graph URLs and sitemap.xml. Leave empty and the build will skip those rather than emit wrong ones. The SITE_URL environment variable overrides this value."
+}

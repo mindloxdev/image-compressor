@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pixelpress codec check</title>
+    <style>
+      body { font: 14px ui-monospace, monospace; padding: 24px; background: #060b1a; color: #e6e9f2; }
+      table { border-collapse: collapse; margin-top: 16px; }
+      th, td { border: 1px solid rgba(230,233,242,0.18); padding: 6px 10px; text-align: left; }
+      .pass { color: #34d399; }
+      .fail { color: #fda4af; }
+      h1 { font-size: 16px; }
+    </style>
+  </head>
+  <body>
+    <h1>Pixelpress codec check — real encodes through the worker pool</h1>
+    <p id="status">Running…</p>
+    <div id="out"></div>
+    <script type="module" src="/test/codec-check.ts"></script>
+  </body>
+</html>
